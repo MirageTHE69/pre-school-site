@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Gallery · Little Millennium Saiyed Vasna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500;600;700;800&family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FFF8EE;color:#2B1B3D;font-family:Nunito,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:#6C4CF1;text-decoration:none}
+a:hover{color:#4E32C9}
+button{font-family:inherit}
+:focus-visible{outline:3px solid #6C4CF1;outline-offset:3px}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(10deg)}}
+@keyframes draw{from{stroke-dashoffset:260}to{stroke-dashoffset:0}}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes zoomin{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<div data-progress="" style="position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,#6C4CF1,#FFC93C);z-index:100"></div>
+
+<header style="position:sticky;top:0;z-index:50;background:rgba(255,248,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid {{ navBorder }};transition:all .3s">
+  <div style="max-width:1200px;margin:0 auto;padding:{{ navPad }};display:flex;align-items:center;gap:20px;transition:padding .3s">
+    <a href="Little%20Millennium%20Home.dc.html" aria-label="Little Millennium Preschool, Saiyed Vasna — home" style="display:flex;align-items:center;gap:10px;flex-shrink:0"><img src="assets/logo.png" alt="Little Millennium — The First Big Step" style="height:{{ logoH }};width:auto;display:block;transition:height .3s"><span style="font-size:12px;font-weight:800;color:#6C4CF1;background:#F0EAFF;padding:3px 10px;border-radius:99px;white-space:nowrap">Vasna–Bhayli</span></a>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;gap:2px;margin-left:auto;font-weight:700;font-size:15px">
+        <a href="Little%20Millennium%20Home.dc.html" style="color:#2B1B3D;padding:8px 10px;border-radius:99px;white-space:nowrap" style-hover="background:#F0EAFF;color:#6C4CF1">Home</a>
+        <a href="About.dc.html" style="color:#2B1B3D;padding:8px 10px;border-radius:99px;white-space:nowrap" style-hover="background:#F0EAFF;color:#6C4CF1">About</a>
+        <a href="Little%20Millennium%20Home.dc.html#programs" style="color:#2B1B3D;padding:8px 10px;border-radius:99px;white-space:nowrap" style-hover="background:#F0EAFF;color:#6C4CF1">Programs</a>
+        <a href="Little%20Millennium%20Home.dc.html#day" style="color:#2B1B3D;padding:8px 10px;border-radius:99px;white-space:nowrap" style-hover="background:#F0EAFF;color:#6C4CF1">Day Care</a>
+        <a href="Little%20Millennium%20Home.dc.html#visit" style="color:#2B1B3D;padding:8px 10px;border-radius:99px;white-space:nowrap" style-hover="background:#F0EAFF;color:#6C4CF1">Admissions</a>
+        <a href="Gallery.dc.html" aria-current="page" style="color:#6C4CF1;background:#F0EAFF;padding:8px 10px;border-radius:99px;white-space:nowrap">Gallery</a>
+        <a href="Little%20Millennium%20Home.dc.html#contact" style="color:#2B1B3D;padding:8px 10px;border-radius:99px;white-space:nowrap" style-hover="background:#F0EAFF;color:#6C4CF1">Contact</a>
+      </nav>
+      <a href="Little%20Millennium%20Home.dc.html#visit" style="background:#6C4CF1;color:#fff;font-weight:800;padding:12px 22px;border-radius:99px;box-shadow:0 3px 0 #4E32C9;white-space:nowrap;flex-shrink:0" style-hover="color:#fff" style-active="transform:translateY(2px);box-shadow:0 1px 0 #4E32C9">Book a School Visit</a>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ openDrawer }}" aria-label="Open menu" style="margin-left:auto;width:48px;height:48px;border-radius:50%;border:none;background:#6C4CF1;display:grid;place-items:center;cursor:pointer;box-shadow:0 3px 0 #4E32C9"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+    </sc-if>
+  </div>
+</header>
+
+<sc-if value="{{ drawer }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeDrawer }}" style="position:fixed;inset:0;background:rgba(43,27,61,.45);z-index:80"></div>
+  <aside style="position:fixed;top:0;right:0;bottom:0;width:min(86vw,360px);background:#FFF8EE;z-index:90;padding:24px;display:flex;flex-direction:column;gap:6px">
+    <button onClick="{{ closeDrawer }}" aria-label="Close menu" style="align-self:flex-end;width:48px;height:48px;border-radius:50%;border:2px solid #2B1B3D;background:transparent;font-size:22px;cursor:pointer;color:#2B1B3D">×</button>
+    <a href="Little%20Millennium%20Home.dc.html" style="font-family:'Baloo Bhai 2';font-weight:700;font-size:26px;color:#2B1B3D;padding:10px 4px;border-bottom:1px dashed #E5D9C6">Home</a>
+    <a href="About.dc.html" style="font-family:'Baloo Bhai 2';font-weight:700;font-size:26px;color:#2B1B3D;padding:10px 4px;border-bottom:1px dashed #E5D9C6">About</a>
+    <a href="Little%20Millennium%20Home.dc.html#programs" style="font-family:'Baloo Bhai 2';font-weight:700;font-size:26px;color:#2B1B3D;padding:10px 4px;border-bottom:1px dashed #E5D9C6">Programs</a>
+    <a href="Little%20Millennium%20Home.dc.html#visit" style="font-family:'Baloo Bhai 2';font-weight:700;font-size:26px;color:#2B1B3D;padding:10px 4px;border-bottom:1px dashed #E5D9C6">Admissions</a>
+    <a href="Gallery.dc.html" style="font-family:'Baloo Bhai 2';font-weight:700;font-size:26px;color:#6C4CF1;padding:10px 4px;border-bottom:1px dashed #E5D9C6">Gallery</a>
+    <a href="Little%20Millennium%20Home.dc.html#contact" style="font-family:'Baloo Bhai 2';font-weight:700;font-size:26px;color:#2B1B3D;padding:10px 4px">Contact</a>
+    <a href="Little%20Millennium%20Home.dc.html#visit" style="margin-top:auto;text-align:center;background:#6C4CF1;color:#fff;font-weight:800;padding:16px;border-radius:99px;box-shadow:0 3px 0 #4E32C9">Book a School Visit</a>
+  </aside>
+</sc-if>
+
+<main>
+<section data-screen-label="Gallery hero" onMouseMove="{{ onHeroMove }}" style="position:relative;overflow:hidden;padding:clamp(56px,8vw,110px) 20px clamp(64px,8vw,100px);min-height:{{ heroMin }}">
+  <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+    <div data-mouse="-18" style="position:absolute;left:4%;top:12%;width:170px;transition:transform .4s ease-out"><div style="background:#fff;padding:10px 10px 30px;border-radius:10px;box-shadow:0 14px 30px rgba(43,27,61,.14);transform:rotate(-9deg)"><div style="aspect-ratio:1;border-radius:6px;overflow:hidden;background:#F0EAFF"><image-slot id="gh-1" shape="rect" placeholder="Navratri"></image-slot></div></div></div>
+    <div data-mouse="24" style="position:absolute;left:10%;bottom:8%;width:150px;transition:transform .4s ease-out"><div style="background:#fff;padding:10px 10px 30px;border-radius:10px;box-shadow:0 14px 30px rgba(43,27,61,.14);transform:rotate(6deg)"><div style="aspect-ratio:1;border-radius:6px;overflow:hidden;background:#FFF3CC"><image-slot id="gh-2" shape="rect" placeholder="Diwali"></image-slot></div></div></div>
+    <div data-mouse="-26" style="position:absolute;right:5%;top:10%;width:180px;transition:transform .4s ease-out"><div style="background:#fff;padding:10px 10px 30px;border-radius:10px;box-shadow:0 14px 30px rgba(43,27,61,.14);transform:rotate(8deg)"><div style="aspect-ratio:1;border-radius:6px;overflow:hidden;background:#FFF3CC"><image-slot id="gh-3" shape="rect" placeholder="Annual Day"></image-slot></div></div></div>
+    <div data-mouse="16" style="position:absolute;right:11%;bottom:6%;width:150px;transition:transform .4s ease-out"><div style="background:#fff;padding:10px 10px 30px;border-radius:10px;box-shadow:0 14px 30px rgba(43,27,61,.14);transform:rotate(-6deg)"><div style="aspect-ratio:1;border-radius:6px;overflow:hidden;background:#F0EAFF"><image-slot id="gh-4" shape="rect" placeholder="Sports Day"></image-slot></div></div></div>
+  </sc-if>
+  <div style="position:relative;max-width:680px;margin:0 auto;text-align:center">
+    <div style="display:flex;gap:8px;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#5C4C6E;margin-bottom:18px"><a href="Little%20Millennium%20Home.dc.html" style="color:#5C4C6E">Home</a><span>/</span><span style="color:#6C4CF1">Gallery</span></div>
+    <h1 style="font-family:'Baloo Bhai 2';font-weight:800;font-size:clamp(44px,6.4vw,82px);line-height:1;letter-spacing:-.02em;margin:0 0 20px;text-wrap:balance">Little moments, <span style="position:relative;display:inline-block;font-family:Caveat,cursive;color:#6C4CF1;font-size:1.2em;line-height:.8">big memories<svg viewBox="0 0 120 16" preserveAspectRatio="none" style="position:absolute;left:0;bottom:-12px;width:100%;height:16px;overflow:visible"><path d="M4 10 Q 30 2 60 9 T 116 6" pathLength="260" fill="none" stroke="#FFC93C" stroke-width="6" stroke-linecap="round" style="stroke-dasharray:260;animation:draw 1.4s .4s ease-out both"></path></svg></span></h1>
+    <p style="font-size:clamp(17px,1.5vw,19px);line-height:1.6;margin:0 auto;max-width:520px;color:#4A3A5C">Festivals, annual days, sports days and ordinary Tuesdays at Little Millennium Saiyed Vasna.</p>
+  </div>
+  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#2B1B3D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;left:46%;bottom:8%;animation:floaty 7s ease-in-out infinite"><path d="M12 2l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 16.8 6.1 20l1.3-6.5L2.5 8.9l6.6-.8z"></path></svg>
+</section>
+
+<section data-screen-label="Gallery grid" style="padding:0 20px clamp(72px,9vw,110px)">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="position:sticky;top:{{ chipsTop }};z-index:20;display:flex;justify-content:center;margin-bottom:32px">
+      <div role="tablist" aria-label="Filter photos" style="display:flex;gap:6px;overflow-x:auto;max-width:100%;background:#fff;border:2px solid #2B1B3D;border-radius:99px;padding:6px;box-shadow:0 4px 0 #2B1B3D;scrollbar-width:none">
+        <sc-for list="{{ cats }}" as="c" hint-placeholder-count="7">
+          <button role="tab" aria-selected="{{ c.on }}" onClick="{{ c.pick }}" style="flex-shrink:0;border:none;cursor:pointer;padding:10px 16px;border-radius:99px;font-weight:800;font-size:15px;background:{{ c.bg }};color:{{ c.fg }};transition:all .25s;display:flex;gap:6px;align-items:center;min-height:44px">{{ c.label }}<span style="font-size:12px;opacity:.7">{{ c.count }}</span></button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="columns:{{ cols }};column-gap:16px">
+      <sc-for list="{{ shown }}" as="g" hint-placeholder-count="12">
+        <button onClick="{{ g.open }}" aria-label="Open photo: {{ g.cap }}" style="display:block;width:100%;break-inside:avoid;margin:0 0 16px;padding:0;border:none;background:none;cursor:zoom-in;text-align:left;animation:pop .6s cubic-bezier(.2,.9,.3,1.2) both;animation-delay:{{ g.delay }}">
+          <div style="position:relative;height:{{ g.h }};border-radius:{{ g.r }};overflow:hidden;background:{{ g.bg }};transition:transform .35s cubic-bezier(.3,1.6,.5,1)" style-hover="transform:scale(.97) rotate(-1deg)">
+            <image-slot id="{{ g.id }}" shape="rect" placeholder="{{ g.cap }}" style="pointer-events:none"></image-slot>
+            <span style="position:absolute;left:12px;bottom:12px;background:#2B1B3D;color:#fff;font-weight:800;font-size:12px;padding:4px 10px;border-radius:99px">{{ g.cat }}</span>
+          </div>
+        </button>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="padding:0 20px clamp(72px,9vw,110px)">
+  <div data-reveal="" style="max-width:1200px;margin:0 auto;background:#6C4CF1;color:#fff;border-radius:36px;padding:clamp(32px,5vw,64px);display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between;position:relative;overflow:hidden">
+    <div style="position:absolute;right:-70px;bottom:-70px;width:240px;height:240px;border-radius:50%;border:40px solid rgba(255,255,255,.08)"></div>
+    <div style="position:relative;max-width:560px"><h2 style="font-family:'Baloo Bhai 2';font-weight:800;font-size:clamp(30px,3.8vw,46px);line-height:1.08;margin:0 0 10px">Want your child in the <span style="font-family:Caveat,cursive;color:#FFC93C;font-size:1.2em">next</span> photo?</h2><p style="margin:0;font-size:17px;line-height:1.6;color:#EDE7FF">Admissions for 2027–28 are open. Come and see a regular school day.</p></div>
+    <a href="Little%20Millennium%20Home.dc.html#visit" style="position:relative;background:#FFC93C;color:#2B1B3D;font-weight:800;font-size:17px;padding:16px 28px;border-radius:99px;box-shadow:0 4px 0 #D9A400" style-hover="color:#2B1B3D" style-active="transform:translateY(3px);box-shadow:0 1px 0 #D9A400">Book a School Visit</a>
+  </div>
+</section>
+</main>
+
+<footer style="position:relative">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block;width:100%;height:50px;margin-bottom:-1px"><path d="M0 30 Q 60 0 120 30 T 240 30 T 360 30 T 480 30 T 600 30 T 720 30 T 840 30 T 960 30 T 1080 30 T 1200 30 T 1320 30 T 1440 30 V 60 H 0 Z" fill="#2B1B3D"></path></svg>
+  <div style="background:#2B1B3D;color:#E9E1F2;padding:48px 20px 40px">
+    <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:center">
+      <div style="background:#fff;border-radius:20px;padding:10px 14px"><img src="assets/logo.png" alt="Little Millennium — The First Big Step" style="height:72px;width:auto;display:block"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:20px;font-weight:700"><a href="Little%20Millennium%20Home.dc.html" style="color:#E9E1F2">Home</a><a href="About.dc.html" style="color:#E9E1F2">About</a><a href="Gallery.dc.html" style="color:#FFC93C">Gallery</a><a href="Little%20Millennium%20Home.dc.html#visit" style="color:#E9E1F2">Admissions</a><a href="Little%20Millennium%20Home.dc.html#contact" style="color:#E9E1F2">Contact</a></div>
+      <div style="font-size:14px;line-height:1.5;max-width:320px">No 6, Behind Panchmukhi Hanuman Temple, Saiyed Vasna, Vadodara 390015 · <a href="tel:08071265192" style="color:#fff;font-weight:800">080 7126 5192</a></div>
+    </div>
+    <div style="max-width:1200px;margin:28px auto 0;padding-top:18px;border-top:1px solid #45325A;font-size:13px;color:#BFB2CF">A Little Millennium franchise · © 2026</div>
+  </div>
+</footer>
+
+<sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-label="Photo viewer" onClick="{{ closeLb }}" style="position:fixed;inset:0;z-index:120;background:rgba(43,27,61,.88);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px);animation:fadein .25s ease both">
+    <div onClick="{{ stop }}" style="position:relative;width:min(100%,900px);display:flex;flex-direction:column;gap:14px;animation:zoomin .35s cubic-bezier(.2,.9,.3,1.2) both">
+      <div style="aspect-ratio:4/3;max-height:74vh;border-radius:24px;overflow:hidden;background:{{ lb.bg }};border:4px solid #fff"><image-slot id="{{ lb.id }}" shape="rect" placeholder="{{ lb.cap }}"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff">
+        <div><div style="font-family:'Baloo Bhai 2';font-weight:800;font-size:22px">{{ lb.cap }}</div><div style="font-size:14px;color:#D8CFE3">{{ lb.cat }} · {{ lbPos }}</div></div>
+        <div style="display:flex;gap:10px">
+          <button onClick="{{ prev }}" aria-label="Previous photo" style="width:52px;height:52px;border-radius:50%;border:2px solid #fff;background:transparent;color:#fff;font-size:22px;cursor:pointer" style-hover="background:#fff;color:#2B1B3D">←</button>
+          <button onClick="{{ next }}" aria-label="Next photo" style="width:52px;height:52px;border-radius:50%;border:none;background:#FFC93C;color:#2B1B3D;font-size:22px;cursor:pointer">→</button>
+        </div>
+      </div>
+      <button onClick="{{ closeLb }}" aria-label="Close" style="position:absolute;top:-18px;right:-18px;width:48px;height:48px;border-radius:50%;border:none;background:#fff;color:#2B1B3D;font-size:24px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.2)">×</button>
+    </div>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+class Component extends DCLogic {
+  state = { w: 1280, scrolled: false, drawer: false, cat: 'All', lb: -1 };
+  items = [
+    ['Navratri', 'Garba in colourful chaniya cholis', 320], ['Diwali', 'Diya painting', 240], ['Classroom', 'Circle time', 280], ['Janmashtami', 'Little Krishnas', 360],
+    ['Annual Day', 'On stage for the annual day', 260], ['Sports Day', 'The big race', 220], ['Navratri', 'Dandiya practice', 260], ['Classroom', 'Art & craft table', 340],
+    ['Diwali', 'Rangoli together', 300], ['Sports Day', 'Medals for everyone', 280], ['Annual Day', 'Dance performance', 340], ['Janmashtami', 'Dahi handi', 240],
+    ['Classroom', 'Story time', 230], ['Navratri', 'Aarti', 300], ['Sports Day', 'Sack race', 260], ['Classroom', 'Playground fun', 320],
+  ].map(([cat, cap, h], i) => ({ cat, cap, h, id: 'gallery-' + i }));
+  componentDidMount() {
+    this.onScroll = this.onScroll.bind(this);
+    this.onResize = () => this.setState({ w: innerWidth }, this.onScroll);
+    this.onKey = e => { if (this.state.lb < 0) return; if (e.key === 'Escape') this.setState({ lb: -1 }); if (e.key === 'ArrowRight') this.step(1); if (e.key === 'ArrowLeft') this.step(-1); };
+    this.onResize();
+    addEventListener('resize', this.onResize); addEventListener('scroll', this.onScroll, { passive: true }); addEventListener('keydown', this.onKey);
+    this.applyMotion();
+    setTimeout(() => this.setupReveal(), 60);
+  }
+  componentDidUpdate(pp, ps) {
+    if (pp.motion !== this.props.motion) this.applyMotion();
+    if ((ps.lb < 0) !== (this.state.lb < 0)) document.body.style.overflow = this.state.lb >= 0 ? 'hidden' : '';
+  }
+  componentWillUnmount() { removeEventListener('resize', this.onResize); removeEventListener('scroll', this.onScroll); removeEventListener('keydown', this.onKey); this.io && this.io.disconnect(); document.body.style.overflow = ''; }
+  motionOff() { return this.props.motion === false || matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  applyMotion() {
+    let s = document.getElementById('lm-nomotion');
+    if (this.motionOff()) { if (!s) { s = document.createElement('style'); s.id = 'lm-nomotion'; s.textContent = '*,*::before,*::after{animation:none!important}'; document.head.appendChild(s); } }
+    else if (s) s.remove();
+  }
+  setupReveal() {
+    if (this.motionOff()) return;
+    const els = [...document.querySelectorAll('[data-reveal]')];
+    const show = el => { el.style.transition = 'opacity .7s ease, transform .8s cubic-bezier(.2,.9,.3,1.2)'; el.style.opacity = '1'; el.style.transform = 'none'; };
+    this.io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { show(e.target); this.io.unobserve(e.target); } }), { threshold: 0.12 });
+    els.forEach(el => { if (el.getBoundingClientRect().top < innerHeight) return; el.style.opacity = '0'; el.style.transform = 'translateY(36px) scale(.98)'; this.io.observe(el); });
+    this.sweep = () => els.forEach(el => { if (el.style.opacity === '0' && el.getBoundingClientRect().top < innerHeight) show(el); });
+  }
+  onScroll() {
+    const y = scrollY, H = document.documentElement.scrollHeight - innerHeight;
+    const pr = document.querySelector('[data-progress]'); if (pr) pr.style.width = (H > 0 ? y / H * 100 : 0) + '%';
+    this.sweep && this.sweep();
+    const sc = y > 40; if (sc !== this.state.scrolled) this.setState({ scrolled: sc });
+  }
+  filtered() { const c = this.state.cat; return c === 'All' ? this.items : this.items.filter(i => i.cat === c); }
+  step(d) { const n = this.filtered().length; this.setState(s => ({ lb: (s.lb + d + n) % n })); }
+  renderVals() {
+    const { w, scrolled, drawer, cat, lb } = this.state, desktop = w >= 1120, wide = w >= 900;
+    const off = this.motionOff();
+    const names = ['All', 'Navratri', 'Diwali', 'Janmashtami', 'Annual Day', 'Sports Day', 'Classroom'];
+    const cats = names.map(n => ({ label: n, on: cat === n, count: n === 'All' ? this.items.length : this.items.filter(i => i.cat === n).length,
+      bg: cat === n ? '#6C4CF1' : 'transparent', fg: cat === n ? '#fff' : '#2B1B3D',
+      pick: () => this.setState({ cat: n, lb: -1 }) }));
+    const radii = ['24px', '999px 999px 24px 24px', '24px', '24px 24px 999px 999px', '50% 50% 24px 24px / 30% 30% 24px 24px'];
+    const list = this.filtered();
+    const shown = list.map((it, i) => ({ ...it, h: (wide ? it.h : Math.round(it.h * 0.8)) + 'px', r: radii[i % radii.length], bg: i % 2 ? '#FFF3CC' : '#F0EAFF',
+      delay: (i * 50) + 'ms', open: () => this.setState({ lb: i }) }));
+    const cur = lb >= 0 ? shown[lb] : null;
+    return {
+      isDesktop: desktop, isMobile: !desktop, wide, drawer,
+      openDrawer: () => this.setState({ drawer: true }), closeDrawer: () => this.setState({ drawer: false }),
+      navPad: scrolled ? '10px 20px' : '18px 20px', navBorder: scrolled ? '#EADFCE' : 'transparent', logoH: scrolled ? '44px' : '58px',
+      heroMin: wide ? '560px' : '0', chipsTop: scrolled ? '78px' : '96px',
+      onHeroMove: e => { if (off) return; const r = e.currentTarget.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        e.currentTarget.querySelectorAll('[data-mouse]').forEach(el => { const k = +el.dataset.mouse; el.style.transform = `translate3d(${x * k}px,${y * k}px,0)`; }); },
+      cats, shown, cols: w >= 1000 ? 4 : w >= 700 ? 3 : 2,
+      lbOpen: !!cur, lb: cur || {}, lbPos: cur ? `${lb + 1} of ${shown.length}` : '',
+      closeLb: () => this.setState({ lb: -1 }), stop: e => e.stopPropagation(),
+      prev: e => { e.stopPropagation(); this.step(-1); }, next: e => { e.stopPropagation(); this.step(1); },
+    };
+  }
+}
+</script>
+</body>
+</html>
