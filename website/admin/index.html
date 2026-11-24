@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Little Millennium Saiyed Vasna</title>
+<link rel="icon" href="../assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="lock" id="lock">
+  <form class="lock-card" id="lock-form">
+    <img src="../assets/logo.png" alt="Little Millennium">
+    <h2 id="lock-title">Admin panel</h2>
+    <p id="lock-sub">Enter your PIN to continue</p>
+    <input class="in pin" id="pin" type="password" inputmode="numeric" maxlength="8" autocomplete="current-password" required>
+    <input class="in pin hide" id="pin2" type="password" inputmode="numeric" maxlength="8" placeholder="Repeat PIN" style="margin-top:10px">
+    <p class="muted" id="lock-err" style="color:#D23B3B;min-height:18px;margin:8px 0"></p>
+    <button class="btn" style="width:100%">Unlock</button>
+  </form>
+</div>
+
+<div class="app hide" id="app">
+  <aside class="side" id="side">
+    <div class="brand"><img src="../assets/logo.png" alt=""><div><b>Admin</b><small>Saiyed Vasna</small></div></div>
+    <nav class="nav" id="nav"></nav>
+    <div class="foot">
+      <a class="btn g sm" href="../index.html" target="_blank">View website ↗</a>
+      <button class="btn g sm" id="lock-btn" type="button">🔒 Lock</button>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="top">
+      <button class="btn g ic menu-btn" id="menu" type="button" aria-label="Menu">☰</button>
+      <h1 id="title">Dashboard</h1>
+      <div id="top-acts" class="row"></div>
+      <button class="btn y" type="button" data-act="new-invoice">+ New invoice</button>
+    </div>
+    <div id="view"></div>
+  </main>
+</div>
+
+<div id="modals"></div>
+<div id="print-root"></div>
+<script src="admin.js"></script>
+</body>
+</html>
